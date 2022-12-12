@@ -2,10 +2,10 @@ package problems
 
 import utils.Utils
 
-object ProblemOne {
+class ProblemOne: Problem {
     private val reader = Utils.getInputReader("problem1a")
 
-    fun aSolution() {
+    override fun solutionA(): String {
         val allDearCalories = mutableListOf<List<Int>>()
         var currentDear = mutableListOf<Int>()
         reader.forEachLine {
@@ -22,6 +22,10 @@ object ProblemOne {
         }.sortedDescending().subList(0, 3)
 
 
-        println(top3.reduce { acc, next -> acc + next })
+        return top3.reduce { acc, next -> acc + next }.toString()
+    }
+
+    override fun solutionB(): String {
+        return ""
     }
 }

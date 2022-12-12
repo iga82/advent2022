@@ -1,12 +1,17 @@
 package problems
 
 import utils.Utils
+import java.io.BufferedReader
 
-object ProblemTwo {
-    private val reader = Utils.getInputReader("problem2")
-    private const val WINNING_SCORE = 6
-    private const val LOSING_SCORE = 0
-    private const val DRAW_SCORE = 3
+const val LOSING_SCORE = 0
+const val WINNING_SCORE = 6
+const val DRAW_SCORE = 3
+
+const val OUTCOME_DRAW = "Y"
+const val OUTCOME_WIN = "Z"
+
+class ProblemTwo: Problem {
+
 
     enum class Move {
         Rock,
@@ -36,18 +41,16 @@ object ProblemTwo {
         }
     }
 
-    fun aSolution() {
+    override fun solutionA(): String {
+        val reader = Utils.getInputReader("problem2")
         var totalScore = 0
         reader.forEachLine {
-            println(it)
             val (theirMove, myMove) = it.split(" ").map { moveStr -> parseMove(moveStr) }
             totalScore += moveScore(myMove) + outcomeScore(myMove, theirMove)
         }
-        println(totalScore)
+        reader.close()
+        return totalScore.toString()
     }
-
-    private const val OUTCOME_DRAW = "Y"
-    private const val OUTCOME_WIN = "Z"
 
     private fun moveNeeded(theirMove: Move, outCome: String): Move {
         if (outCome == OUTCOME_DRAW) {
@@ -60,7 +63,8 @@ object ProblemTwo {
         }
     }
 
-    fun bSolution() {
+    override fun solutionB(): String {
+        val reader = Utils.getInputReader("problem2")
         var totalScore = 0
         reader.forEachLine {
             val (theirMoveStr, outcome)  = it.split(" ")
@@ -68,6 +72,7 @@ object ProblemTwo {
             val myMove = moveNeeded(theirMove, outcome)
             totalScore += moveScore(myMove) + outcomeScore(myMove, theirMove)
         }
-        println(totalScore)
+        reader.close()
+        return totalScore.toString()
     }
 }
